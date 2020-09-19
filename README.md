@@ -4,6 +4,9 @@
 * Python 3
 * Flask > 1.1
 * Jinja 2 templates
+* HTML
+* CSS
+* jQuery
 
 ## Run
 Execute `python3 app.py`
