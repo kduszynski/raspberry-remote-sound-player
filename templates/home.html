@@ -2,92 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Remote sound player</title>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
             $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
-            function playSound(name){
-                $.ajax({
-                    url: $SCRIPT_ROOT + "/start?soundName=" + name,
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#now-playing").show()
-                        $("#volume").show()
-                        $("#now-playing").html("Playing " + data)
-                  },
-                });
-            }
-
-            function resume(){
-                $.ajax({
-                    url: $SCRIPT_ROOT + "/resume",
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#now-playing").show()
-                        $("#volume").show()
-                        $("#now-playing").html("Playing " + data)
-                  },
-                });
-            }
-
-            function stop(){
-                $.ajax({
-                    url: $SCRIPT_ROOT + "/pause",
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#now-playing").show()
-                        $("#volume").show()
-                        $("#now-playing").html("Stopped " + data)
-                  },
-                });
-            }
-
-            function volUp(){
-                $.ajax({
-                    url: $SCRIPT_ROOT + "/volume-up",
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#volume").show()
-                        $("#volume").html("Volume " + data)
-                  },
-                });
-            }
-
-            function volDown(){
-                $.ajax({
-                    url: $SCRIPT_ROOT + "/volume-down",
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#volume").show()
-                        $("#volume").html("Volume " + data)
-                  },
-                });
-            }
-         </script>
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/service.js') }}"></script>
 </head>
 <body>
-<h1>Welcome on list page</h1>
+    <h1>Welcome on list page</h1>
 
-<div id="now-playing">Selected</div>
-<div id="volume">Volume</div>
+    <div id="now-playing">Selected</div>
+    <div id="volume">Volume</div>
 
-<div class="box">
-    <div id="resume" class="center" onclick="resume()">Play</div>
-    <div id="stop" class="center" onclick="stop()">Stop</div>
-</div>
+    <div class="box">
+        <div class="center" id="resume" onclick="resume()">Play</div>
+        <div class="center" id="stop" onclick="stop()">Stop</div>
+    </div>
 
-<div class="box">
-    <div class="volume center" onclick="volUp()">+</div>
-    <div class="volume center" onclick="volDown()">-</div>
-</div>
+    <div class="box">
+        <div class="volume center" onclick="volUp()">+</div>
+        <div class="volume center" onclick="volDown()">-</div>
+    </div>
 
-<div id="sounds-list">
-    {% for sound in sounds %}
+    <div id="sounds-list">
+        {% for sound in sounds %}
         <div class="sound-tile center" onclick="playSound('{{ sound }}')">{{ sound }}</div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
 </body>
 </html>
