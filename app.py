@@ -51,8 +51,7 @@ def pause_playing_sound():
 def volume_down():
     global volume
     if volume > 0:
-        volume -= 0.05
-        mixer.music.set_volume(volume)
+        change_volume_by_and_set(-0.05)
     return str(volume)
 
 
@@ -60,9 +59,15 @@ def volume_down():
 def volume_up():
     global volume
     if volume < 1:
-        volume += 0.05
-        mixer.music.set_volume(volume)
+        change_volume_by_and_set()
     return str(volume)
+
+
+def change_volume_by_and_set(delta=0.05):
+    global volume
+    volume += delta
+    volume = round(volume, 2)
+    mixer.music.set_volume(volume)
 
 
 if __name__ == '__main__':
