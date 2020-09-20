@@ -28,6 +28,8 @@ def list_available_sounds():
         sound = Sound(sound_file_name, int(file_info.info.length))
         available_sounds.append(sound)
 
+    available_sounds.sort(key=lambda s: s.name.lower())
+
     return render_template(template_name_or_list="home.html",
                            sounds=available_sounds,
                            selected_sound_name=selected_sound_name,
