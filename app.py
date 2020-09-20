@@ -3,13 +3,16 @@
 import glob
 
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
 from pygame import mixer
 
 sound_files_root_location = '/home/pi/Music/'
 current_playing_sound_name = ''
 volume = 0.5
 
+
 app = Flask(__name__)
+Bootstrap(app)
 
 
 @app.route('/')

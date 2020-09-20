@@ -1,36 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Remote sound player</title>
-    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+Remote sound player
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+{% endblock %}
+
+{% block scripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
             $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/service.js') }}"></script>
-</head>
-<body>
-    <h1>Welcome on list page</h1>
 
-    <div id="now-playing">Selected</div>
-    <div id="volume">Volume</div>
 
-    <div class="box">
-        <div class="center" id="resume" onclick="resume()">Play</div>
-        <div class="center" id="stop" onclick="stop()">Stop</div>
+
+
+</script>
+<script src="{{ url_for('static', filename='js/service.js') }}" type="text/javascript"></script>
+{{super()}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h3>Sound controls</h3>
+
+    <div class="row">
+        <div class="card">
+            <h5 id="now-playing" class="col-md-12 card-title">Selected</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <h5 id="volume" class="col-md-12 card-title">Volume</h5>
+        </div>
     </div>
 
-    <div class="box">
-        <div class="volume center" onclick="volUp()">+</div>
-        <div class="volume center" onclick="volDown()">-</div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <button class="btn btn-success btn-block" id="resume" onclick="resume()" type="button">Play</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-warning btn-block" id="stop" onclick="stop()" type="button">Stop</button>
+        </div>
     </div>
 
-    <div id="sounds-list">
+    <div class="box row">
+        <div class="col-md-6">
+            <button class="btn btn-info btn-block" onclick="volUp()">+</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-info btn-block" onclick="volDown()">-</button>
+        </div>
+    </div>
+
+    <h3>List of sounds:</h3>
+
+    <ul class="list-group">
         {% for sound in sounds %}
-        <div class="sound-tile center" onclick="playSound('{{ sound }}')">{{ sound }}</div>
+        <li class="list-group-item list-group-item-action list-group-item-warning" onclick="playSound('{{ sound }}')">{{
+            sound }}
+        </li>
         {% endfor %}
-    </div>
+        <ul>
+</div>
 
-</body>
-</html>
+{% endblock %}
