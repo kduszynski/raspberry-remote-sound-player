@@ -23,7 +23,7 @@ Remote sound player
     <div class="row">
         <div class="card">
             <h5 class="col-md-1 card-title" id="selected-sound-status">Playing:</h5>
-            <h5 class="card-body col-md-3" id="selected-sound">{{ selected_sound_name }}</h5>
+            <h5 class="card-body col-md-3" id="selected-sound">{{ selected_sound_name if selected_sound_name != '' else 'none' }}</h5>
         </div>
     </div>
 
@@ -38,8 +38,10 @@ Remote sound player
 
     <div class="row">
         <div class="card">
-            <h5 class="col-md-1 card-title">Volume:</h5>
-            <h5 id="volume" class="card-body col-md-3">{{ volume }}</h5>
+            <div class="card-body">
+                <h5 class="col-md-1 card-title">Volume:</h5>
+                <h5 class="card-text col-md-3" id="volume">{{ volume }}</h5>
+            </div>
         </div>
     </div>
 
