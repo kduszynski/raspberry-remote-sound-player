@@ -7,7 +7,7 @@ from flask_bootstrap import Bootstrap
 from pygame import mixer
 
 sound_files_root_location = '/home/pi/Music/'
-current_playing_sound_name = ''
+selected_sound_name = ''
 volume = 0.5
 
 
@@ -23,31 +23,31 @@ def list_available_sounds():
         available_sounds_file_names.append(sound.replace(sound_files_root_location, "").replace(".mp3", ""))
     return render_template(template_name_or_list="home.html",
                            sounds=available_sounds_file_names,
-                           current_playing_sound_name=current_playing_sound_name,
+                           selected_sound_name=selected_sound_name,
                            volume=volume)
 
 
 @app.route('/start', methods=['POST'])
 def start_playing_sound():
-    global current_playing_sound_name
+    global selected_sound_name
     sound_name = request.args.get('soundName', '')
-    current_playing_sound_name = sound_name
+    selected_sound_name = sound_name
     mixer.music.set_volume(volume)
-    mixer.music.load("/home/pi/Music/" + current_playing_sound_name + ".mp3")
+    mixer.music.load("/home/pi/Music/" + selected_sound_name + ".mp3")
     mixer.music.play()
-    return current_playing_sound_name
+    return selected_sound_name
 
 
 @app.route('/resume', methods=['POST'])
 def resume_playing_sound():
     mixer.music.unpause()
-    return current_playing_sound_name
+    return selected_sound_name
 
 
 @app.route('/pause', methods=['POST'])
 def pause_playing_sound():
     mixer.music.pause()
-    return current_playing_sound_name
+    return selected_sound_name
 
 
 @app.route('/volume-down', methods=['POST'])

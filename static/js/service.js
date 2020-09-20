@@ -3,9 +3,8 @@ function playSound(name){
         url: $SCRIPT_ROOT + "/start?soundName=" + name,
         type: "POST",
         success: function (data, status, xhr) {
-            $("#now-playing").show()
             $("#volume").show()
-            $("#now-playing").html("Playing " + data)
+            $("#selected-sound").html(data)
       },
     });
 }
@@ -15,9 +14,8 @@ function resume(){
         url: $SCRIPT_ROOT + "/resume",
         type: "POST",
         success: function (data, status, xhr) {
-            $("#now-playing").show()
-            $("#volume").show()
-            $("#now-playing").html("Playing " + data)
+            $("#selected-sound-status").html("Playing:")
+            $("#selected-sound").html(data)
       },
     });
 }
@@ -27,9 +25,8 @@ function stop(){
         url: $SCRIPT_ROOT + "/pause",
         type: "POST",
         success: function (data, status, xhr) {
-            $("#now-playing").show()
-            $("#volume").show()
-            $("#now-playing").html("Stopped " + data)
+            $("#selected-sound-status").html("Stopped:")
+            $("#selected-sound").html(data)
       },
     });
 }
@@ -39,8 +36,7 @@ function volUp(){
         url: $SCRIPT_ROOT + "/volume-up",
         type: "POST",
         success: function (data, status, xhr) {
-            $("#volume").show()
-            $("#volume").html("Volume " + data)
+            $("#volume").html(data)
       },
     });
 }
@@ -50,8 +46,7 @@ function volDown(){
         url: $SCRIPT_ROOT + "/volume-down",
         type: "POST",
         success: function (data, status, xhr) {
-            $("#volume").show()
-            $("#volume").html("Volume " + data)
+            $("#volume").html(data)
       },
     });
 }
