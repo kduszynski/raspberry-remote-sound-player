@@ -23,7 +23,8 @@ Remote sound player
     <div class="row">
         <div class="card">
             <h5 class="col-md-1 card-title" id="selected-sound-status">Playing:</h5>
-            <h5 class="card-body col-md-3" id="selected-sound">{{ selected_sound_name if selected_sound_name != '' else 'none' }}</h5>
+            <h5 class="card-body col-md-3" id="selected-sound">{{ selected_sound_name if selected_sound_name != '' else
+                'none' }}</h5>
         </div>
     </div>
 
@@ -58,11 +59,18 @@ Remote sound player
 
     <ul class="list-group">
         {% for sound in sounds %}
-        <li class="list-group-item list-group-item-action list-group-item-warning" onclick="playSound('{{ sound }}')">{{
-            sound }}
+        <li class="list-group-item list-group-item-action list-group-item-warning" onclick="playSound('{{ sound }}')">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ sound.name }}
+                </div>
+                <div class="col-md-6">
+                    {{ sound.duration_hours }}h {{ sound.duration_minutes }}m {{ sound.duration_seconds }}s
+                </div>
+            </div>
         </li>
         {% endfor %}
-        <ul>
+    </ul>
 </div>
 
 {% endblock %}

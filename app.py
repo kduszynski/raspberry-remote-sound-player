@@ -5,6 +5,9 @@ import glob
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from pygame import mixer
+from mutagen.mp3 import MP3
+
+from sound import Sound
 
 sound_files_root_location = '/home/pi/Music/'
 selected_sound_name = ''
@@ -17,12 +20,16 @@ Bootstrap(app)
 
 @app.route('/')
 def list_available_sounds():
-    available_sounds = glob.glob(sound_files_root_location + "*.mp3")
-    available_sounds_file_names = []
-    for sound in available_sounds:
-        available_sounds_file_names.append(sound.replace(sound_files_root_location, "").replace(".mp3", ""))
+    available_sound_file_names = glob.glob(sound_files_root_location + "*.mp3")
+    available_sounds = []
+    for sound_absolute_path in available_sound_file_names:
+        sound_file_name = sound_absolute_path.replace(sound_files_root_location, "").replace(".mp3", "")
+        file_info = MP3(sound_absolute_path)
+        sound = Sound(sound_file_name, int(file_info.info.length))
+        available_sounds.append(sound)
+
     return render_template(template_name_or_list="home.html",
-                           sounds=available_sounds_file_names,
+                           sounds=available_sounds,
                            selected_sound_name=selected_sound_name,
                            volume=volume)
 
