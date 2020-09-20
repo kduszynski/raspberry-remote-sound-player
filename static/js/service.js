@@ -4,7 +4,7 @@ function playSound(name){
         type: "POST",
         success: function (data, status, xhr) {
             $("#volume").show()
-            $("#selected-sound").html(data)
+            $("#selected-sound").html(data.name)
       },
     });
 }
@@ -15,7 +15,7 @@ function resume(){
         type: "POST",
         success: function (data, status, xhr) {
             $("#selected-sound-status").html("Playing:")
-            $("#selected-sound").html(data)
+            $("#selected-sound").html(data.name)
       },
     });
 }
@@ -26,7 +26,7 @@ function stop(){
         type: "POST",
         success: function (data, status, xhr) {
             $("#selected-sound-status").html("Stopped:")
-            $("#selected-sound").html(data)
+            $("#selected-sound").html(data.name)
       },
     });
 }
